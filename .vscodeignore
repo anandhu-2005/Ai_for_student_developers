@@ -1,0 +1,27 @@
+# Files excluded from the packaged .vsix (reduces file size)
+
+# Source TypeScript (compiled JS in dist/ is included)
+src/**
+test/**
+*.test.ts
+
+# Dev config
+.vscode/**
+tsconfig.json
+test-runner.js
+
+# Logs and temp
+*.log
+*.map
+**/*.map
+
+# Git
+.gitignore
+.git/**
+
+# Scheduling demo files (not part of extension)
+scheduling/**
+
+# Node source only
+node_modules/**
+
