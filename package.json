@@ -1,0 +1,234 @@
+{
+  "name": "ai-error-checklister",
+  "displayName": "AI Error Checklister",
+  "description": "AI Debugging Tutor for VS Code - Diagnoses logical errors, algorithm mismatches, loops, and runtime errors with purpose-first explanations.",
+  "version": "0.1.0",
+  "publisher": "student-dev",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Education",
+    "Linters",
+    "Debuggers"
+  ],
+  "keywords": [
+    "debugging",
+    "ai",
+    "tutor",
+    "student",
+    "error explainer",
+    "loop tracer",
+    "algorithm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_GITHUB_USERNAME/ai-error-checklister"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_GITHUB_USERNAME/ai-error-checklister/issues"
+  },
+  "main": "./dist/src/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-error-checklister.toggleProvider",
+        "title": "AI Error Checklister: Switch AI Engine (Gemini / Ollama)",
+        "icon": "$(zap)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.analyzeCurrentFile",
+        "title": "AI Error Checklister: Analyze Current File",
+        "icon": "$(file-code)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.analyzeSelection",
+        "title": "AI Error Checklister: Analyze Selected Code",
+        "icon": "$(selection)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.analyzeLastRun",
+        "title": "AI Error Checklister: Analyze Last Run",
+        "icon": "$(terminal)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.runAndCapture",
+        "title": "AI Error Checklister: Run & Diagnose in Terminal",
+        "icon": "$(play)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.explainLoopOrAlgorithm",
+        "title": "AI Error Checklister: Explain Loop or Algorithm",
+        "icon": "$(sync)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.openReport",
+        "title": "AI Error Checklister: Open Debugging Report",
+        "icon": "$(preview)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.configureProvider",
+        "title": "AI Error Checklister: Configure AI Provider",
+        "icon": "$(gear)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.testConnection",
+        "title": "AI Error Checklister: Test AI Connection",
+        "icon": "$(plug)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.toggleLiveMonitoring",
+        "title": "AI Error Checklister: Enable or Disable Live Monitoring",
+        "icon": "$(radio-tower)",
+        "category": "AI Error Checklister"
+      },
+      {
+        "command": "ai-error-checklister.clearHistory",
+        "title": "AI Error Checklister: Clear Debugging History",
+        "icon": "$(trash)",
+        "category": "AI Error Checklister"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ai-error-checklister.runAndCapture",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "ai-error-checklister.runAndCapture",
+          "group": "navigation@1"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ai-error-checklister.analyzeCurrentFile",
+          "group": "ai-checklister@1"
+        },
+        {
+          "command": "ai-error-checklister.analyzeSelection",
+          "when": "editorHasSelection",
+          "group": "ai-checklister@2"
+        },
+        {
+          "command": "ai-error-checklister.explainLoopOrAlgorithm",
+          "group": "ai-checklister@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "ai-error-checklister.analyzeCurrentFile"
+        },
+        {
+          "command": "ai-error-checklister.analyzeSelection"
+        },
+        {
+          "command": "ai-error-checklister.analyzeLastRun"
+        },
+        {
+          "command": "ai-error-checklister.runAndCapture"
+        },
+        {
+          "command": "ai-error-checklister.explainLoopOrAlgorithm"
+        },
+        {
+          "command": "ai-error-checklister.openReport"
+        },
+        {
+          "command": "ai-error-checklister.configureProvider"
+        },
+        {
+          "command": "ai-error-checklister.testConnection"
+        },
+        {
+          "command": "ai-error-checklister.toggleLiveMonitoring"
+        },
+        {
+          "command": "ai-error-checklister.clearHistory"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI Error Checklister",
+      "properties": {
+        "aiErrorChecklister.provider": {
+          "type": "string",
+          "enum": ["gemini", "ollama", "mock"],
+          "default": "gemini",
+          "description": "Active AI Engine: Google Gemini (Cloud) or Ollama (Local)."
+        },
+        "aiErrorChecklister.ollama.baseUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Base URL of the local Ollama instance."
+        },
+        "aiErrorChecklister.ollama.model": {
+          "type": "string",
+          "default": "qwen2.5-coder:7b",
+          "description": "Ollama model tag to query (e.g., qwen2.5-coder:7b, llama3.2, codellama)."
+        },
+        "aiErrorChecklister.gemini.model": {
+          "type": "string",
+          "default": "gemini-2.5-flash-lite",
+          "description": "Gemini model to use when Gemini provider is selected."
+        },
+        "aiErrorChecklister.requestTimeoutMs": {
+          "type": "number",
+          "default": 180000,
+          "description": "Timeout in milliseconds for AI requests (e.g. 180000 for 3 minutes to accommodate local 7B models)."
+        },
+        "aiErrorChecklister.autoAnalyzeOnError": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically trigger analysis when terminal execution produces errors."
+        },
+        "aiErrorChecklister.liveMonitoring": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable background monitoring of terminal output for dev server errors."
+        },
+        "aiErrorChecklister.maxSourceLines": {
+          "type": "number",
+          "default": 500,
+          "description": "Maximum number of source code lines to send in an analysis prompt."
+        },
+        "aiErrorChecklister.historyRetentionLimit": {
+          "type": "number",
+          "default": 10,
+          "description": "Maximum number of debugging reports to keep in local history."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "node test-runner.js",
+    "lint": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.17.19",
+    "@types/vscode": "^1.85.0",
+    "mocha": "^10.8.2",
+    "typescript": "^5.7.3"
+  }
+}
